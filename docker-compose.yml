@@ -1,0 +1,16 @@
+version: '3.1'
+services:
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  etl:
+    build: .
+    stdin_open: true
+    tty: true
+    environment:
+      PGHOST: db
+      PGUSER: postgres
